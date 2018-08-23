@@ -40,8 +40,7 @@ public class BoardView extends JFrame {
 
 	// Listen for changes in the text
 	DocumentListener docListner = new DocumentListener() {
-		public void changedUpdate(DocumentEvent e) {
-			
+		public void changedUpdate(DocumentEvent e) {	
 		}
 		public void removeUpdate(DocumentEvent e) {
 		}
@@ -80,9 +79,36 @@ public class BoardView extends JFrame {
 				data [row-1][column-1] = piece.getNumber();
 			}	
 		}
-		controller controller = new controller(data);
+		refresh();
+		printBoard();
+		data = controller.controllerFind(data);
+		printBoard();
+		refresh();
 	}
 	
+
+	private void refresh() {
+		for(int row=1;row<=9;row++) {
+			for(int column=1;column<=9;column++) {
+				BoardPiece square = getRowGetCol(row, column);
+				square.setNumber(Integer.parseInt(fields.get(square).getText()));
+				data[row-1][column-1] = Integer.parseInt(fields.get(square).getText());
+				fields.get(square).setText(""+data[row-1][column-1]);
+			}
+		}
+	}
+	
+	private void printBoard() {
+		for(int row=1;row<=9;row++) {
+			for(int column=1;column<=9;column++) {
+				BoardPiece square = getRowGetCol(row, column);
+                System.out.print(data[row-1][column-1] + " ");
+				fields.get(square).setText(""+data[row-1][column-1]);
+
+            }
+            System.out.println();
+        }
+    }
 
 	//Create Text Fields and Squares and add to HashMaps and ArrayList
 	private void generateTiles() {
@@ -108,6 +134,7 @@ public class BoardView extends JFrame {
 				fields.put(square, field);
 				fieldsList.add(field);
 				field.setText("0");
+				
 			}
 		}
 	}

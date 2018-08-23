@@ -1,3 +1,4 @@
+//Inspiration for algorithm from https://www.baeldung.com/java-sudoku//
 package controller;
 
 import java.util.stream.IntStream;
@@ -8,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class controller {
 	
-	private int [][] board;
+	private int [][] board = new int[9][9];
     private static final int BOARD_SIZE = 9;
     private static final int SUBSECTION_SIZE = 3;
     private static final int BOARD_START_INDEX = 0;
@@ -17,20 +18,12 @@ public class controller {
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 9;
 
-    public controller(int [][] board) {
-    	this.board = board;
+    public static int[][] controllerFind(int [][] board) {
+    	controller control = new controller();
+    	control.board = board;
        // controller solver = new controller(board);
-        this.solve(board);
-        this.printBoard();
-    }
-
-    private void printBoard() {
-        for (int row = BOARD_START_INDEX; row < BOARD_SIZE; row++) {
-            for (int column = BOARD_START_INDEX; column < BOARD_SIZE; column++) {
-                System.out.print(board[row][column] + " ");
-            }
-            System.out.println();
-        }
+        control.solve(board);
+        return board;
     }
 
     private boolean solve(int[][] board) {
