@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -150,6 +151,7 @@ public class BoardView extends JFrame {
 		getContentPane().setLayout(layout);
 		panel = new JPanel(layout);
 		panel.setLayout(layout);
+		getContentPane().setBackground(Color.pink);
 		saveButton.setBackground(Color.RED);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
