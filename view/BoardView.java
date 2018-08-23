@@ -1,7 +1,12 @@
 package view;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,21 +39,7 @@ public class BoardView extends JFrame {
 			JButton button = (JButton) e.getSource();
 			checkMoves();
 		}
-
-
 	};
-
-	// Listen for changes in the text
-	DocumentListener docListner = new DocumentListener() {
-		public void changedUpdate(DocumentEvent e) {	
-		}
-		public void removeUpdate(DocumentEvent e) {
-		}
-		public void insertUpdate(DocumentEvent e) {
-		}
-	};
-
-
 
 	//Add HashMaps and Arrays
 	HashMap<JTextField, BoardPiece> tiles = new HashMap<JTextField, BoardPiece>();
@@ -104,7 +95,6 @@ public class BoardView extends JFrame {
 				BoardPiece square = getRowGetCol(row, column);
                 System.out.print(data[row-1][column-1] + " ");
 				fields.get(square).setText(""+data[row-1][column-1]);
-
             }
             System.out.println();
         }
@@ -116,6 +106,7 @@ public class BoardView extends JFrame {
 		for(int row=1;row<=9;row++) {
 			for(int column=1;column<=9;column++) {
 				JTextField field = new JTextField();
+				field.setBackground(Color.YELLOW);
 				field.getDocument().addDocumentListener(new DocumentListener() {
 				    @Override
 				    public void insertUpdate(DocumentEvent e) {
@@ -139,12 +130,27 @@ public class BoardView extends JFrame {
 		}
 	}
 
+	public void paint(Graphics g) {
+		super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+        Line2D lin1 = new Line2D.Float(429, 20, 429, 500);
+        Line2D lin2 = new Line2D.Float(222, 20, 222, 500);
+        Line2D lin3 = new Line2D.Float(20, 230, 635, 230);
+        Line2D lin4 = new Line2D.Float(20, 134, 635, 134);
+        g2.setStroke(new BasicStroke(10));
+        g2.draw(lin1);
+        g2.draw(lin2);
+        g2.draw(lin3);
+        g2.draw(lin4);
+    }
+	
 	private void initComponents() {
 		// Set Group Layout
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		panel = new JPanel(layout);
 		panel.setLayout(layout);
+		saveButton.setBackground(Color.RED);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
 		layout.setHorizontalGroup(
